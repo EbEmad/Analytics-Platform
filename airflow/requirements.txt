@@ -1,0 +1,18 @@
+# Playwright for web scraping
+playwright==1.40.0
+
+# Web scraping dependencies
+beautifulsoup4==4.12.2
+requests==2.31.0
+lxml==4.9.3
+
+# Database
+psycopg2-binary==2.9.9
+
+# Data manipulation
+pandas==2.1.4
+numpy==1.26.3
+
+# Utilities
+python-dotenv==1.0.0
+pyyaml==6.0.1
