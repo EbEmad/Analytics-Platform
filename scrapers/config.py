@@ -30,12 +30,12 @@ class ScraperConfig:
 
     DB_HOST:str=os.getenv("POSTGRES_HOST", "postgres")
     DB_PORT:int=int(os.getenv("POSTGRES_PORT", "5432"))
-    DB_NAME:str=os.getenv("ANALYTICS_DB_NAME", "Arsenal")
-    DB_USER:str=os.getenv("ANALYTICS_DB_USER","postgres")
-    DB_PASSWORD:str=os.getenv("ANALYTICS_DB_PASSWORD","ebemad")
+    DB_NAME:str=os.getenv("ANALYTICS_DB_NAME", "arsenalfc_analytics")
+    DB_USER:str=os.getenv("ANALYTICS_DB_USER","analytics_user")
+    DB_PASSWORD:str=os.getenv("ANALYTICS_DB_PASSWORD","analytics_pass")
 
     @property
-    def db_conn(self)->str:
+    def db_connection_string(self)->str:
         """Get PostgreSQL connection string"""
         return (
             f"postgresql://{self.DB_USER}:{self.DB_PASSWORD}"

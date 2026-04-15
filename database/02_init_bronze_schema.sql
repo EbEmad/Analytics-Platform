@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS bronze.fbref_raw (
 CREATE TABLE IF NOT EXISTS bronze.understat_raw (
     id SERIAL PRIMARY KEY,
     match_id VARCHAR(50) NOT NULL,
+    team_name VARCHAR(100),
     scraped_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     scrape_run_id VARCHAR(100),
     match_url TEXT,
@@ -77,7 +78,8 @@ CREATE INDEX IF NOT EXISTS idx_fbref_lineups_scraped_at ON bronze.fbref_lineups(
 
 CREATE TABLE IF NOT EXISTS bronze.match_reference (
     id SERIAL PRIMARY KEY,
-    match_url TEXT UNIQUE NOT NULL,
+    match_url TEXT NOT NULL,
+    team_name VARCHAR(100),
     match_date DATE NOT NULL,
     home_team VARCHAR(100) NOT NULL,
     away_team VARCHAR(100) NOT NULL,
@@ -85,7 +87,9 @@ CREATE TABLE IF NOT EXISTS bronze.match_reference (
     fbref_url TEXT,
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    UNIQUE(match_url, team_name)
 );
 
 CREATE INDEX IF NOT EXISTS idx_match_reference_date ON bronze.match_reference(match_date DESC);
