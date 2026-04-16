@@ -30,6 +30,7 @@ RUN apt-get update && apt-get install -y \
     libcairo2 \
     libharfbuzz0b \
     libpangocairo-1.0-0 \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 USER airflow
 COPY requirements.txt /requirements.txt

@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS bronze.understat_raw (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 
-    UNIQUE(match_id, scraped_at)
+    UNIQUE(match_id)
 
 );
 
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS bronze.fbref_lineups (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    UNIQUE(match_url,scraped_at)
+    UNIQUE(match_url)
 );
 
 CREATE INDEX IF NOT EXISTS idx_fbref_lineups_match_id ON bronze.fbref_lineups(match_id);

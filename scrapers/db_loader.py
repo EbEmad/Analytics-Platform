@@ -281,7 +281,7 @@ class DatabaseLoader:
                         INSERT INTO bronze.fbref_lineups
                         (match_id, match_url, raw_lineups, scrape_run_id, scraped_at, updated_at)
                         VALUES (%s, %s, %s, %s, %s, %s)
-                        ON CONFLICT (match_url, scraped_at)
+                        ON CONFLICT (match_url)
                         DO UPDATE SET
                             raw_lineups = EXCLUDED.raw_lineups,
                             match_id = EXCLUDED.match_id,

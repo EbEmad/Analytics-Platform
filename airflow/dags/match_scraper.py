@@ -119,10 +119,10 @@ with DAG(
 
 ) as dag:
     scrape_arsenal_task = PythonOperator(task_id='scrape_arsenal', python_callable=scrape_arsenal)
-    scrape_manutd_task = PythonOperator(task_id='scrape_manchester_united', python_callable=scrape_manchester_united)
-    scrape_mancity_task = PythonOperator(task_id='scrape_manchester_city', python_callable=scrape_manchester_city)
-    scrape_liverpool_task = PythonOperator(task_id='scrape_liverpool', python_callable=scrape_liverpool)
-    summarize_task = PythonOperator(task_id='summarize', python_callable=summarize)
-
-    [scrape_arsenal_task, scrape_manutd_task, scrape_mancity_task, scrape_liverpool_task] >> summarize_task
+    #scrape_manutd_task = PythonOperator(task_id='scrape_manchester_united', python_callable=scrape_manchester_united)
+    #scrape_mancity_task = PythonOperator(task_id='scrape_manchester_city', python_callable=scrape_manchester_city)
+    #scrape_liverpool_task = PythonOperator(task_id='scrape_liverpool', python_callable=scrape_liverpool)
+    #summarize_task = PythonOperator(task_id='summarize', python_callable=summarize)
+    scrape_arsenal_task
+    #[scrape_arsenal_task, scrape_manutd_task, scrape_mancity_task, scrape_liverpool_task] >> summarize_task
 
