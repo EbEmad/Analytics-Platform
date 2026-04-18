@@ -58,7 +58,7 @@ SELECT
     FROM bronze.understat_raw r 
     INNER JOIN bronze.match_reference ref ON r.match_url = ref.match_url
     CROSS JOIN jsonb_array_elements(r.raw_shots->'shots') AS shot
-    LEFT JOIN lineup_position pos ON(
+    LEFT JOIN lineup_positions pos ON(
         r.match_url = pos.match_url
         AND shot->>'player_name' = pos.player_name
         AND CASE WHEN shot->>'h_a' = 'h' THEN 'home' ELSE 'away' END = pos.team_side
