@@ -10,10 +10,14 @@ from utils.cache import ResponseCache
 from rag.embeddings import EmbeddingManager
 from rag.chain import RAGChain
 import uvicorn
+from utils.metrics import setup_metrics
 
 load_dotenv()
 
 app = FastAPI(title="EPL Analytics RAG Chatbot API")
+
+setup_metrics(app)
+
 
 app.add_middleware(
     CORSMiddleware,

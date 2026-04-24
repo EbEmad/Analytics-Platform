@@ -145,10 +145,69 @@ services:
     restart: always
     networks:
       - arsenalfc_network
+  
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:v0.17.1
+    container_name: postgres-exporter
+    ports:
+      - "9187:9187"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ./.env.postgres-exporter
+    networks:
+      - arsenalfc_network
+  
+  prometheus:
+    image: prom/prometheus:v3.3.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - docs-network
+
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+  grafana:
+    image:  grafana/grafana:11.6.0-ubuntu
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    env_file:
+      - ./.env.grafana
+    networks:
+      - arsenalfc_network
+  
+  node-exporter:
+    image: prom/node-exporter:v1.9.1
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - arsenalfc_network
+
+    
 
 volumes:
   postgres_data:
-
 
 networks:
   arsenalfc_network:
