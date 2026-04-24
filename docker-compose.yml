@@ -171,7 +171,7 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
-      - docs-network
+      - arsenalfc_network
 
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
