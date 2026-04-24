@@ -6,10 +6,15 @@ class RAGChain:
     def __init__(self):
         self.ollama_host=os.getenv('OLLAMA_HOST', 'http://ollama:11434')
         self.model=os.getenv('OLLAMA_MODEL', 'qwen2.5:72b')
-    
-    
-    with open('./system_prompts/analyst.txt', 'r') as f:
-        self.system_prompt = f.read()
+        
+        # Load system prompt
+        try:
+            prompt_path = os.path.join(os.path.dirname(__file__), '..', 'system_prompts', 'analyst.txt')
+            with open(prompt_path, 'r') as f:
+                self.system_prompt = f.read()
+        except Exception as e:
+            print(f"Warning: Could not load system prompt: {e}")
+            self.system_prompt = "You are a football data analyst."
 
     
     def build_context(self,documents:List[str])->str:

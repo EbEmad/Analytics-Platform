@@ -33,7 +33,7 @@ class ChatMessage(BaseModel):
     role:str
     content:str
 
-class ChatRequest:
+class ChatRequest(BaseModel):
     question:str
     conversation_history:Optional[List[ChatMessage]]=[]
 
@@ -144,10 +144,10 @@ async def rebuild_embeddings():
     try:
         embeddings.clear_collection()
         matches=db.fetch_all_matches()
-        embeddings.add_matches(matches)
+        embeddings.embed_matches(matches)
 
         player_stats=db.fetch_all_player_stats()
-        embeddings.add_player_stats(player_stats)
+        embeddings.embed_player_stats(player_stats)
 
         return {
             "status": "success",
